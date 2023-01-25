@@ -175,3 +175,32 @@ quickSort (x : xs) =
   let biggerSorted = quickSort [a | a <- xs, a >= x]
       smallerSorted = quickSort [a | a <- xs, a < x]
    in smallerSorted ++ [x] ++ biggerSorted
+
+multThree :: (Num a) => a -> a -> a -> a
+multThree x y z = x * y * z
+
+compareWithHundred :: (Num a, Ord a) => a -> Ordering
+compareWithHundred = compare 100
+
+devideByTen :: (Floating a) => a -> a
+devideByTen = (/ 10)
+
+devideTen :: (Floating a) => a -> a
+devideTen = (10 /)
+
+addTen :: (Num a) => a -> a
+addTen = (+ 10)
+
+subTen :: (Num a) => a -> a
+subTen = subtract 10
+
+applyTwice :: (a -> a) -> a -> a
+applyTwice f x = f (f x)
+
+zipWith' :: (x -> y -> z) -> [x] -> [y] -> [z]
+zipWith' _ [] _ = []
+zipWith' _ _ [] = []
+zipWith' f (x : xs) (y : ys) = f x y : zipWith' f xs ys
+
+flip' :: (a -> b -> c) -> b -> a -> c
+flip' f x y = f y x
