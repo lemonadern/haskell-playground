@@ -127,3 +127,51 @@ describeList xs =
     [] -> "empty"
     [x] -> "singleton"
     xs -> "longer"
+
+maximum' :: (Ord a) => [a] -> a
+maximum' [] = error "maximum of empty list"
+maximum' [s] = s
+maximum' (x : xs)
+  | x > maxTail = x
+  | otherwise = maxTail
+  where
+    maxTail = maximum' xs
+
+replicate' :: (Integral n) => n -> a -> [a]
+replicate' 0 _ = []
+replicate' n el = el : replicate' (n - 1) el
+
+replicate'' :: (Num n, Ord n) => n -> a -> [a]
+replicate'' n x
+  | n <= 0 = []
+  | otherwise = x : replicate'' (n - 1) x
+
+take' :: (Num n, Ord n) => n -> [a] -> [a]
+take' 0 _ = []
+take' _ [] = []
+take' n (x : xs) = x : take' (n - 1) xs
+
+reverse' :: [a] -> [a]
+reverse' [] = []
+reverse' (h : xs) = reverse' xs ++ [h]
+
+repeat' :: a -> [a]
+repeat' x = x : repeat' x
+
+zip' :: [a] -> [b] -> [(a, b)]
+zip' [] _ = []
+zip' _ [] = []
+zip' (l : lxs) (r : rxs) = (l, r) : zip' lxs rxs
+
+elem' :: Eq a => a -> [a] -> Bool
+elem' _ [] = False
+elem' t (x : xs)
+  | t == x = True
+  | otherwise = elem' t xs
+
+quickSort :: (Ord a) => [a] -> [a]
+quickSort [] = []
+quickSort (x : xs) =
+  let biggerSorted = quickSort [a | a <- xs, a >= x]
+      smallerSorted = quickSort [a | a <- xs, a < x]
+   in smallerSorted ++ [x] ++ biggerSorted
