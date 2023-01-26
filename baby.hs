@@ -250,3 +250,19 @@ listOfFunctions = map (*) [1 ..]
 
 numLongChains' :: Int
 numLongChains' = length (filter (\x -> length x > 15) (map chain [1 .. 100]))
+
+-- flip'' :: (a -> b -> c) -> b -> a -> c
+-- flip'' f = \x y -> f y x
+
+-- sum' :: (Num a) => [a] -> a
+-- sum' [] = 0
+-- sum' (x : xs) = x + sum' xs
+
+-- sum'' :: (Num a) => [a] -> a
+-- sum'' xs = foldl (\acc x -> acc + x) 0 xs
+
+-- sum'' :: (Num a) => [a] -> a
+-- sum'' = foldl (+) 0
+
+elem'' :: Eq a => a -> [a] -> Bool
+elem'' e = foldl (\acc x -> acc || (e == x)) False
