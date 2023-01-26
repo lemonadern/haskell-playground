@@ -204,3 +204,49 @@ zipWith' f (x : xs) (y : ys) = f x y : zipWith' f xs ys
 
 flip' :: (a -> b -> c) -> b -> a -> c
 flip' f x y = f y x
+
+map' :: (a -> b) -> [a] -> [b]
+map' _ [] = []
+map' f (x : xs) = f x : map' f xs
+
+filter' :: (a -> Bool) -> [a] -> [a]
+filter' _ [] = []
+filter' f (x : xs)
+  | f x = x : res
+  | otherwise = res
+  where
+    res = filter' f xs
+
+quickSort' :: (Ord a) => [a] -> [a]
+quickSort' [] = []
+quickSort'
+  (x : xs) =
+    let bigger = quickSort' (filter' (> x) xs)
+        smaller = quickSort' (filter' (<= x) xs)
+     in smaller ++ [x] ++ bigger
+
+largestDivisibleBy3829 :: (Integral a) => a
+largestDivisibleBy3829 = head (filter' f [100000, 99999 ..])
+  where
+    f x = x `mod` 3829 == 0
+
+chain :: (Integral n) => n -> [n]
+chain 0 = error "0 is invalid input"
+chain 1 = [1]
+chain n
+  | even n = n : chain (n `div` 2)
+  | odd n = n : chain (3 * n + 1)
+
+numLongChains :: Int
+numLongChains = length (filter longerThan15 (map chain [1 .. 100]))
+  where
+    longerThan15 x = length x > 15
+
+listOfFunctions = map (*) [1 ..]
+
+-- product' :: (Num a) => [a] -> a
+-- product' [] = 1
+-- product' (x : xs) = x * product' xs
+
+numLongChains' :: Int
+numLongChains' = length (filter (\x -> length x > 15) (map chain [1 .. 100]))
