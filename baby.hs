@@ -266,3 +266,9 @@ numLongChains' = length (filter (\x -> length x > 15) (map chain [1 .. 100]))
 
 elem'' :: Eq a => a -> [a] -> Bool
 elem'' e = foldl (\acc x -> acc || (e == x)) False
+
+map'' :: (a -> b) -> [a] -> [b]
+map'' f xs = foldr (\x acc -> f x : acc) [] xs
+
+sum' :: (Num a) => [a] -> a
+sum' = foldl1 (+)
