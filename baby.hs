@@ -267,8 +267,32 @@ numLongChains' = length (filter (\x -> length x > 15) (map chain [1 .. 100]))
 elem'' :: Eq a => a -> [a] -> Bool
 elem'' e = foldl (\acc x -> acc || (e == x)) False
 
-map'' :: (a -> b) -> [a] -> [b]
-map'' f xs = foldr (\x acc -> f x : acc) [] xs
+-- map'' :: (a -> b) -> [a] -> [b]
+-- map'' f xs = foldr (\x acc -> f x : acc) [] xs
 
-sum' :: (Num a) => [a] -> a
-sum' = foldl1 (+)
+-- sum' :: (Num a) => [a] -> a
+-- sum' = foldl1 (+)
+
+-- Implement Standard Library Functions by using folds
+
+-- maximum'' :: (Foldable t, Ord a) => t a -> a
+-- maximum'' = foldl1 (\x acc -> if x > acc then x else acc)
+
+reverse'' :: [a] -> [a]
+-- reverse'' = foldl (\x acc -> acc : x) []
+reverse'' = foldl (flip (:)) []
+
+-- product' :: (Num a) => [a] -> a
+-- product' = foldl (*) 1
+
+filter'' :: (a -> Bool) -> [a] -> [a]
+-- filter'' f = foldl (\acc x -> if f x then acc ++ [x] else acc) []
+filter'' f = foldr (\x acc -> if f x then x : acc else acc) []
+
+-- head''' :: [a] -> a
+-- head''' = foldl1 (\acc _ -> acc)
+-- head''' = foldr1 (\x _ -> x)
+
+last' :: [a] -> a
+-- last' = foldl1 (\_ x -> x)
+last' = foldr1 (\_ acc -> acc)
