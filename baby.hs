@@ -296,3 +296,6 @@ filter'' f = foldr (\x acc -> if f x then x : acc else acc) []
 last' :: [a] -> a
 -- last' = foldl1 (\_ x -> x)
 last' = foldr1 (\_ acc -> acc)
+
+sqrtSums :: Int
+sqrtSums = length (takeWhile (< 1000) (scanl1 (+) (map sqrt [1 ..]))) + 1
