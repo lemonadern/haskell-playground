@@ -1,3 +1,5 @@
+import Data.List (group, inits, nub, sort, tails)
+
 doubleMe x = x + x
 
 doubleUs x y = doubleMe x + doubleMe y
@@ -299,3 +301,16 @@ last' = foldr1 (\_ acc -> acc)
 
 sqrtSums :: Int
 sqrtSums = length (takeWhile (< 1000) (scanl1 (+) (map sqrt [1 ..]))) + 1
+
+charNums :: String -> [(Char, Int)]
+charNums = map (\l@(x : _) -> (x, length l)) . group . sort
+
+splittedPattern :: String -> [(String, String)]
+splittedPattern xs = zip (inits xs) (tails xs)
+
+-- search :: (Eq a) => [a] -> [a] -> Bool
+-- search needle haystack =
+--   let nlen = length needle
+--    in foldl (\acc x -> if take nlen x == needle then True else acc) False (tails haystack)
+
+
